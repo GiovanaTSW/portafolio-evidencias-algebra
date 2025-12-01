@@ -1,0 +1,479 @@
+<!-- Estructura básica del documento HTML -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Productos Notables</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --azul-oscuro: #00224D;
+    --morado: #5D0E41;
+    --rosa-oscuro: #A0153E;
+    --coral: #FF204E;
+    --rojo: #BF092F;
+    --background: #f8fafc;
+    --card-background: #ffffff;
+    --text-primary: #132440;
+    --text-secondary: #16476A;
+    --border-color: #000B58;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'courier', Tahoma, Geneva, Verdana, sans-serif;
+    background: #F9F3EF;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 90px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, var(--azul-oscuro), var(--morado));
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-lg);
+}
+
+header h1 {
+    font-size:3rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 1;
+}
+
+/* Main */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Controls Section */
+.controls {
+    background: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 50px;
+}
+
+.input-hint {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 9px;
+    font-style: italic;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--morado);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.inputs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--coral);
+    color: white;
+    font-family: 'courier', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid var(--rosa-oscuro);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.btn-primary:hover {
+    background: var(--rosa-oscuro);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Results Section */
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.result-card {
+    background: var(--card-background);
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--morado);
+}
+
+.result-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.expression {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--azul-oscuro);
+    padding: 16px;
+    background: var(--coral);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.formula {
+    font-size: 1.1rem;
+    font-family: 'Courier New', monospace;
+    padding: 16px;
+    background: var(--coral);
+    border-radius: 8px;
+    color: var(--text-primary);
+}
+
+.steps {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.steps div {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.steps div:last-child {
+    border-bottom: none;
+}
+
+.expression-result {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.numeric-result {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--azul-oscuro);
+    padding: 24px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.verification {
+    font-size: 1rem;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.verification.correcto {
+    background: var(--coral);
+    color: var(--azul-oscuro);
+    border: 2px solid var(--azul-oscuro);
+}
+
+.verification.incorrecto {
+    background: var(--coral);
+    color: var(--danger-color);
+    border: 2px solid var(--morado);
+}
+
+/* Visualization Section */
+.visualization {
+    background: var(--card-background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.visualization h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+#canvas-geometrico {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    margin: 20px auto;
+    display: block;
+    background: white;
+}
+
+.geo-description {
+    color: white;
+    font-size: 1rem;
+    margin-top: 16px;
+    font-style: italic;
+}
+
+/* Historial Section */
+.historial-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.historial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.historial-header h2 {
+    font-size: 1.5rem;
+}
+
+.btn-secondary {
+    padding: 8px 16px;
+    background: var(--morado);
+    color: white;
+    border: 2px soli;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.btn-secondary:hover {
+    background: white;
+}
+
+.historial {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.historial-item {
+    padding: 16px;
+    background: pink;
+    border-radius: 8px;
+    border-left: 4px solid var(--azul-oscuro);
+}
+
+.historial-item strong {
+    color: white;
+}
+
+.historial-vacio {
+    text-align: center;
+    color: white;
+    padding: 50px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+    color: white;
+    border-top: 2px solid var(--border-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .inputs-container {
+        grid-template-columns: 1fr;
+    }
+
+    .historial-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.historial-item {
+    animation: fadeIn 0.3s ease-out;
+}
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+</head>
+<body>
+<div class="container">
+        <header>
+            <h1>Calculadora de Productos Notables</h1>
+            <p class="subtitle">Actividad #10 - Unidad II - Nombre de la institución: Tecnológico de Software, nombre de la materia: Fundamentos de Álgebra, nombre del maestro: Jorge Javier Pedrozo Romero, nombre del alumna: Giovana Ruby Díaz Anduze, grupo: 1°A</p>
+        </header>
+	    
+        <main>
+            <section class="controls">
+                <div class="form-group">
+                    <label for="modo">Modo de Cálculo:</label>
+                    <select id="modo" class="input-field">
+                        <option value="numerico">Numérico (solo números)</option>
+                        <option value="algebraico">Algebraico (con variables)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo de Producto Notable:</label>
+                    <select id="tipo" class="input-field">
+                        <option value="binomio-cuadrado-suma">Binomio al Cuadrado (a + b)²</option>
+                        <option value="binomio-cuadrado-resta">Binomio al Cuadrado (a - b)²</option>
+                        <option value="binomio-cubo-suma">Binomio al Cubo (a + b)³</option>
+                        <option value="binomio-cubo-resta">Binomio al Cubo (a - b)³</option>
+                        <option value="termino-comun">Término Común (x + a)(x + b)</option>
+                        <option value="conjugados">Binomios Conjugados (a + b)(a - b)</option>
+                    </select>
+                </div>
+
+                <div class="inputs-container">
+                    <div class="form-group">
+                        <label for="valor-a">Valor de a:</label>
+                        <input type="text" id="valor-a" class="input-field" value="3" placeholder="Ej: 3 o 3x">
+                        <small class="input-hint">Numérico: 3 | Algebraico: 3x, 5y</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valor-b">Valor de b:</label>
+                        <input type="text" id="valor-b" class="input-field" value="2" placeholder="Ej: 2 o 5y">
+                        <small class="input-hint">Numérico: 2 | Algebraico: 5y, 2z</small>
+                    </div>
+                </div>
+
+                <button id="calcular" class="btn-primary">Calcular</button>
+            </section>
+
+            <section class="results">
+                <div class="result-card">
+                    <h2>Expresión Original</h2>
+                    <div id="expresion-original" class="expression">-</div>
+                </div>
+
+                <div class="result-card">
+                    <h2>Fórmula Aplicada</h2>
+                    <div id="formula" class="formula">-</div>
+                </div>
+
+                <div class="result-card">
+                    <h2>Desarrollo Paso a Paso</h2>
+                    <div id="desarrollo" class="steps">-</div>
+                </div>
+
+                <div class="result-card">
+                    <h2>Forma Expandida</h2>
+                    <div id="expandida" class="expression-result">-</div>
+                </div>
+
+                <div class="result-card">
+                    <h2>Resultado Numérico</h2>
+                    <div id="resultado-numerico" class="numeric-result">-</div>
+                </div>
+
+                <div class="result-card">
+                    <h2>Verificación</h2>
+                    <div id="verificacion" class="verification">-</div>
+                </div>
+            </section>
+
+            <section class="visualization">
+                <h2>Representación Geométrica</h2>
+                <canvas id="canvas-geometrico" width="400" height="400"></canvas>
+                <p id="descripcion-geometrica" class="geo-description"></p>
+            </section>
+
+            <section class="historial-container">
+                <div class="historial-header">
+                    <h2>Historial de Cálculos</h2>
+                    <button id="limpiar-historial" class="btn-secondary">Limpiar</button>
+                </div>
+                <div id="historial" class="historial"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 - Fundamentos de Álgebra - TSU en Desarrollo de Software</p>
+        </footer>
+    </div>
+</body>
+</html>
