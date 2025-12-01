@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>División sintética</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier', Tahoma, Geneva, Verdana, sans-serif;
+    background: #93DA97;
+    min-height: 200vh;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: #E8FFD7;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 3 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+}
+
+h1 {
+    color: #3E5F44;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 3em;
+    font-weight: 800;
+}
+
+.subtitle {
+    text-align: center;
+    color: #5E936C;
+    margin-bottom: 30px;
+    font-size: 0.9em;
+}
+
+.input-section {
+    margin-bottom: 50px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #3E5F44;
+    font-weight: 600;
+}
+
+.help-text {
+    font-size: 0.85em;
+    color: #5E936C;
+    margin-top: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    border-color: #3E5F44;
+    font-size: 1em;
+    transition: border-color 0.5s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #3E5F44;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: #3E5F44;
+    color: #E8FFD7;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #93DA97;
+}
+
+button:active {
+    background: #E8FFD7;
+}
+
+.result-section {
+    margin-top: 50px;
+    padding: 20px;
+    background: #93DA97;
+    border-radius: 4px;
+    border: 2px solid #3E5F44;
+    display: none;
+}
+
+.result-section.show {
+    display: block;
+}
+
+.result-title {
+    color: #3E5F44;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.process-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background: #E8FFD7;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #3E5F44;
+}
+
+.process-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #3E5F44;
+}
+
+.process-table tr:first-child td {
+    background: black;
+    color: white;
+    font-weight: 500;
+}
+
+.divisor-cell {
+    background: black;
+    font-weight: 500;
+}
+
+.final-result {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.final-result p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.error {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border: 1px solid #3E5F44;
+}
+
+.example {
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 4px;
+    border: 2px solid #3E5F44;
+    margin-top: 10px;
+    font-size: 0.85em;
+    border: 1px solid #E8FFD7;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>División Sintética de Polinomios</h1>
+    <p class="subtitle">Soporta coeficientes y raíces reales y complejas</p>
+    <p class= "subtitle"> Nombre de la institución: Tecnológico de Software, Nombre de la materia: Fundamentos de Álgebra, Nombre del docente: Jorge Javier Pedrozo Romero, Nombre completo del alumno: Giovana Ruby Díaz Anduze, Grupo del estudiante: 1°A </p> 
+
+    <div class="input-section">
+        <label for="polinomio">Polinomio:</label>
+        <input type="text" id="polinomio" placeholder="Ejemplo: 5x^3 + 3x^2 + 2x + 1 o x^2 - 6x + 11">
+        <p class="help-text">Ingresa el polinomio con formato algebraico</p>
+        <div class="example">
+            <strong>Ejemplos:</strong><br>
+            • 5x^3 + 3x^2 + 2x + 1<br>
+            • x^3 - 6x^2 + 11x - 6<br>
+            • 2x^2 + (3+2i)x + 1<br>
+            • x^4 - 1
+        </div>
+    </div>
+
+    <div class="input-section">
+        <label for="raiz">Raíz (divisor):</label>
+        <input type="text" id="raiz" placeholder="Ejemplo: 2 o 1+i">
+        <p class="help-text">Ingresa el valor de la raíz (puede ser complejo)</p>
+        <div class="example">
+            <strong>Ejemplos:</strong> 2, -3, 1+i, 2-3i
+        </div>
+    </div>
+
+    <button onclick="calcularDivision()">Calcular División Sintética</button>
+
+    <div id="resultado" class="result-section"></div>
+</div>
+</body>
+</html>
