@@ -1,0 +1,241 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Calculadora de Conversiones - Números Complejos</title>
+ <style> 
+/* ==================== RESET BÁSICO ==================== */ 
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+} 
+ 
+/* ==================== ESTRUCTURA GENERAL ==================== */ 
+body { 
+    font-family: 'Courier', sans-serif; 
+    background-color: #FFFBDE; 
+    padding: 20px; 
+    line-height: 2; 
+} 
+ 
+.container { 
+    max-width: 800px; 
+    margin: 0 auto; 
+    background: #FFFBDE; 
+    border-radius: 40px; 
+    box-shadow: 0 4px 10px rgba(1,1,1,1); 
+    padding: 50px; 
+} 
+ 
+/* ==================== ENCABEZADOS ==================== */ 
+h1 { 
+    text-align: center; 
+    color: #47002B; 
+    margin-bottom: 30px; 
+    font-weight: 300; 
+    font-size: 30px; 
+} 
+
+ 
+h2 {
+color: #096B68; 
+margin-bottom: 15px; 
+font-size: 25px; 
+font-weight: 600; 
+} 
+
+
+h3 { 
+    text-align: center; 
+    color: #47002B; 
+    margin-bottom: 30px; 
+    font-weight: 300; 
+    font-size: 20px; 
+} 
+/* ==================== INSTRUCCIONES ==================== */ 
+.instructions { 
+    background-color: #129990; 
+    padding: 15px;
+    border: 3px solid #096B68;
+    border-radius: 10px; 
+    margin-bottom: 25px; 
+    font-size: 15px; 
+    color: #FFFBDE; 
+} 
+ 
+.instructions ul { 
+    margin-left: 20px; 
+    margin-top: 10px; 
+} 
+ 
+.instructions li { 
+    margin-bottom: 5px; 
+} 
+ 
+/* ==================== SECCIONES DE FORMULARIO ==================== 
+*/ 
+.form-section { 
+    margin-bottom: 25px; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 10px;
+    border: 3px solid #096B68; 
+    padding: 20px; 
+    background: #90D1CA; 
+} 
+ 
+.input-group { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    margin-bottom: 15px;
+} 
+ 
+.input-group:last-child { 
+    margin-bottom: 0; 
+} 
+ 
+/* ==================== ETIQUETAS Y OPERADORES ==================== 
+*/ 
+label { 
+    min-width: 20px; 
+    font-weight: 600; 
+    color: #096B68; 
+    font-size: 16px; 
+} 
+ 
+.operator { 
+    font-size: 16px; 
+    color: #096B68; 
+    margin: 0 5px; 
+    font-weight: 500; 
+} 
+/* ==================== CAMPOS DE ENTRADA ==================== */ 
+input[type="text"] { 
+    width: 100px; 
+    padding: 8px 12px; 
+    border: 1px solid #096B68; 
+    border-radius: 4px; 
+    font-size: 14px; 
+    text-align: center; 
+    font-family: 'courier', monospace; 
+} 
+ 
+input[type="text"]:focus { 
+    outline: none; 
+    border-color: #096B68; 
+    box-shadow: 0 0 0 2px rgba(1, 1, 1, 1); 
+} 
+ 
+input[readonly] { 
+    background-color: #129990 !important; 
+    cursor: not-allowed; 
+} 
+ 
+/* ==================== RESULTADOS ==================== */ 
+.result { 
+    background-color: #096B68; 
+    padding: 15px; 
+    border-radius: 6px; 
+    border-left: 8px solid white; 
+    font-family: 'courier', monospace; 
+    font-size: 20px; 
+    color: white; 
+    min-height: 50px; 
+    display: flex; 
+    align-items: center; 
+  font-weight: bold; 
+} 
+ 
+/* ==================== BOTÓN LIMPIAR ==================== */ 
+.clear-btn { 
+    background-color: #096B68; 
+    color: white; 
+    border: solid; 
+    padding: 10px 10px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    margin-top: 20px; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
+    font-weight: 500; 
+} 
+ 
+.clear-btn:hover { 
+    background-color: #D1007D; 
+    transform: translateY(-1px); 
+} 
+
+</style> 
+</head> 
+<body> 
+
+<div class="container"> 
+<h1>Calculadora de Conversiones de Números Complejos</h1>
+<h3>Tecnológico de Software Fundamentos de Álgebra, Jorge Javier Pedrozo Romero, Giovana Ruby Díaz Anduze, Grupo: 1°A</h3>
+<div class="instructions"> 
+<strong>Instrucciones:</strong> 
+<ul> 
+<li>Ingresa un número complejo en cualquiera de las tres 
+formas</li> 
+<li>Las otras formas se calcularán automáticamente</li> 
+<li>Los ángulos se expresan en radianes y en múltiplos de 
+pi cuando es posible</li> 
+<li>Para ángulos puedes usar: pi, pi/2, pi/4, pi/3, pi/6, 
+2*pi, etc.</li> 
+<li>Para raíces cuadradas puedes usar: sqrt(2), sqrt(3), 
+sqrt(5), etc.</li> 
+<li>Usa números decimales (ejemplo: 1.5, -2.7, 0.5)</li> 
+</ul> 
+</div>
+<!-- Forma Cartesiana --> 
+<div class="form-section"> 
+    <h2>Forma Cartesiana: a + bi</h2> 
+    <div class="input-group"> 
+        <label>z =</label> 
+        <input type="text" id="real" placeholder="a (ej: sqrt(2))"> 
+        <span class="operator">+</span> 
+        <input type="text" id="imag" placeholder="b (ej: sqrt(3))"> 
+        <span class="operator">i</span> 
+    </div> 
+    <div class="result" id="cartesian-result">Ingresa los valores 
+arriba</div> 
+</div>
+<!-- Forma Polar --> 
+<div class="form-section"> 
+<h2>Forma Polar: r(cos θ + i sin θ)</h2> 
+<div class="input-group"> 
+<label>z =</label> 
+<input type="text" id="modulus" placeholder="r (ej: sqrt(2))"> 
+<span class="operator">(cos</span> 
+<input type="text" id="angle" placeholder="θ (ej: pi/2)"> 
+<span class="operator">+ i sin</span> 
+<input type="text" id="angle2" placeholder="θ" readonly 
+style="background: #f0f0f0;"> 
+<span class="operator">)</span> 
+</div> 
+<div class="result" id="polar-result">Ingresa los valores arriba</div> 
+</div>
+<!-- Forma Exponencial --> 
+<div class="form-section"> 
+<h2>Forma Exponencial: re^(iθ)</h2> 
+<div class="input-group"> 
+<label>z =</label> 
+<input type="text" id="exp-modulus" placeholder="r (ej: sqrt(5))"> 
+<span class="operator">e^(i*</span> 
+<input type="text" id="exp-angle" placeholder="θ (ej: pi/4)"> 
+<span class="operator">)</span> 
+</div> 
+<div class="result" id="exponential-result">Ingresa los valores 
+arriba</div> 
+<button class="clear-btn" onclick="clearAll()">Limpiar Todo</button>
+</div> 
+
+
+ 
+</div> 
+</body> 
+</html>
