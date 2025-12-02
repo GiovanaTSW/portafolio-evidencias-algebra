@@ -6,104 +6,161 @@
     <title>División sintética</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 <style>
+/* ==============================
+   Tipografía (Poppins) + variables
+================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+
+:root {
+    --morado-claro: #EF88AD;
+    --morado-int:  #A53860;
+    --morado-uva:  #670D2F;
+    --morado-fuerte:#3A0519;
+    --blanco:      #ffffff;
+    --gris-claro:  #f8fafc;
+    --gris-medio:  #e2e8f0;
+    --sombra:      rgba(103,13,47,0.12);
+}
+
+/* ==============================
+   Reset general
+================================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ==============================
+   Body
+================================ */
 body {
-    font-family: 'Courier', Tahoma, Geneva, Verdana, sans-serif;
-    background: #93DA97;
-    min-height: 200vh;
-    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#3A0519); /* sutil fondo relacionado */
+    min-height: 100vh;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    color: var(--morado-fuerte);
 }
 
+/* ==============================
+   Contenedor principal
+================================ */
 .container {
-    background: #E8FFD7;
-    border-radius: 8px;
-    padding: 40px;
-    box-shadow: 3 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
+    background: var(--gris-claro);
+    border-radius: 14px;
+    padding: 36px;
+    box-shadow: 0 8px 24px var(--sombra);
+    max-width: 960px;
     width: 100%;
 }
 
+/* ==============================
+   Títulos
+================================ */
 h1 {
-    color: #3E5F44;
+    font-family: 'Poppins', sans-serif;
+    color: var(--morado-uva);
     text-align: center;
-    margin-bottom: 10px;
-    font-size: 3em;
+    margin-bottom: 12px;
+    font-size: 2.6rem;
     font-weight: 800;
 }
 
 .subtitle {
+    font-family: 'Poppins', sans-serif;
     text-align: center;
-    color: #5E936C;
-    margin-bottom: 30px;
-    font-size: 0.9em;
+    color: var(--morado-int);
+    margin-bottom: 22px;
+    font-size: 1.05rem;
+    font-weight: 600;
 }
 
+/* ==============================
+   Inputs
+================================ */
 .input-section {
-    margin-bottom: 50px;
+    margin-bottom: 32px;
 }
 
 label {
     display: block;
     margin-bottom: 8px;
-    color: #3E5F44;
-    font-weight: 600;
+    color: var(--morado-uva);
+    font-weight: 700;
+    font-size: 0.95rem;
 }
 
 .help-text {
-    font-size: 0.85em;
-    color: #5E936C;
-    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--morado-int);
+    margin-top: 6px;
 }
 
-input[type="text"] {
+input[type="text"],
+textarea {
     width: 100%;
-    padding: 15px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    border-color: #3E5F44;
-    font-size: 1em;
-    transition: border-color 0.5s;
+    padding: 14px;
+    border: 2px solid var(--morado-int);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--gris-claro);
+    color: var(--morado-fuerte);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+textarea:focus {
     outline: none;
-    border-color: #3E5F44;
+    border-color: var(--morado-uva);
+    box-shadow: 0 8px 18px var(--sombra);
 }
 
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ==============================
+   Botón principal
+================================ */
 button {
     width: 100%;
-    padding: 15px;
-    background: #3E5F44;
-    color: #E8FFD7;
+    padding: 13px 16px;
+    background: var(--morado-uva);
+    color: var(--blanco);
     border: none;
-    border-radius: 4px;
-    font-size: 1em;
-    font-weight: 500;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: 0 6px 14px var(--sombra);
+    font-family: 'Poppins', sans-serif;
 }
 
 button:hover {
-    background: #93DA97;
+    background: var(--morado-int);
+    transform: translateY(-3px);
 }
 
 button:active {
-    background: #E8FFD7;
+    transform: translateY(0);
 }
 
+/* ==============================
+   Resultados
+================================ */
 .result-section {
-    margin-top: 50px;
-    padding: 20px;
-    background: #93DA97;
-    border-radius: 4px;
-    border: 2px solid #3E5F44;
+    margin-top: 28px;
+    padding: 18px;
+    background: linear-gradient(180deg, var(--morado-claro), #f7d0dd);
+    border-radius: 10px;
+    border: 2px solid var(--morado-int);
     display: none;
 }
 
@@ -112,70 +169,83 @@ button:active {
 }
 
 .result-title {
-    color: #3E5F44;
-    font-weight: 600;
-    margin-bottom: 15px;
-    font-size: 1.1em;
+    color: var(--morado-fuerte);
+    font-weight: 800;
+    margin-bottom: 12px;
+    font-size: 1.25rem;
 }
 
+/* ==============================
+   Tabla / Proceso
+================================ */
 .process-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 30px;
-    background: #E8FFD7;
-    border-radius: 4px;
+    margin-bottom: 20px;
+    background: var(--gris-claro);
+    border-radius: 6px;
     overflow: hidden;
-    border: 1px solid #3E5F44;
+    border: 2px solid var(--morado-int);
 }
 
 .process-table td {
     padding: 10px;
     text-align: center;
-    border: 1px solid #3E5F44;
+    border: 1px solid var(--morado-int);
+    font-family: 'Poppins', sans-serif;
 }
 
 .process-table tr:first-child td {
-    background: black;
-    color: white;
-    font-weight: 500;
+    background: var(--morado-uva);
+    color: var(--blanco);
+    font-weight: 700;
 }
 
-.divisor-cell {
-    background: black;
-    font-weight: 500;
-}
-
+/* ==============================
+   Resultado final / errores / ejemplo
+================================ */
 .final-result {
-    background: #f0f0f0;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 15px;
-    border: 1px solid #e0e0e0;
+    background: var(--gris-medio);
+    padding: 14px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 2px solid var(--morado-int);
+    font-weight: 600;
+    color: var(--morado-fuerte);
+    font-family: 'Poppins', sans-serif;
 }
 
-.final-result p {
-    margin: 8px 0;
-    color: #333;
-}
+.final-result p { margin: 6px 0; }
 
 .error {
-    background: #ffebee;
-    color: #c62828;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 15px;
-    border: 1px solid #3E5F44;
+    background: #ffe6ee;
+    color: #7a0720;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+    border: 2px solid var(--morado-uva);
 }
 
+/* ejemplo */
 .example {
-    background: #fafafa;
+    background: var(--gris-claro);
     padding: 10px;
-    border-radius: 4px;
-    border: 2px solid #3E5F44;
+    border-radius: 8px;
+    border: 2px solid var(--morado-int);
     margin-top: 10px;
-    font-size: 0.85em;
-    border: 1px solid #E8FFD7;
+    color: var(--morado-fuerte);
 }
+
+/* ==============================
+   Responsive
+================================ */
+@media (max-width: 768px) {
+    .container { padding: 22px; }
+    h1 { font-size: 2rem; }
+    .subtitle { font-size: 1rem; }
+    input[type="text"], textarea { padding: 12px; }
+}
+
 </style>
 </head>
 <body>
