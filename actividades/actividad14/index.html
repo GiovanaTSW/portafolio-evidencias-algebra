@@ -6,178 +6,236 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Simbólica Ecuaciones Lineales</title>
 <style>
+/* ==============================
+   Tipografía + variables
+================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+
+:root {
+    --morado-claro: #EF88AD;
+    --morado-int:  #A53860;
+    --morado-uva:  #670D2F;
+    --morado-fuerte:#3A0519;
+    --blanco:      #ffffff;
+    --gris-claro:  #f8fafc;
+    --gris-medio:  #e2e8f0;
+    --sombra:      rgba(103,13,47,0.12);
+}
+
+/* ==============================
+   Body
+================================ */
 body {
-    font-family: 'Courier', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #FFBDBD;
-    color: #333;
-    margin: 2;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #3A0519);
+    color: var(--morado-fuerte);
+    margin: 0;
     padding: 30px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    min-height: 200vh;
+    min-height: 150vh;
 }
 
+/* ==============================
+   Contenedor
+================================ */
 .container {
-    background-color: #FCF9EA;
+    background-color: var(--gris-claro);
     padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(1, 1, 1, 0.1);
+    border-radius: 14px;
+    box-shadow: 0 8px 20px var(--sombra);
     width: 100%;
     max-width: 900px;
 }
 
+/* ==============================
+   Títulos
+================================ */
 h1 {
-    color: #E06B80;
-    margin-bottom: 30px;
+    color: var(--morado-uva);
+    margin-bottom: 25px;
     text-align: center;
-    font-size: 2.2em;
+    font-size: 2.4em;
+    font-weight: 800;
 }
 
 h2 {
-    color: #FFA4A4;
-    border-bottom: 2px solid #ecf0f1;
+    color: var(--morado-int);
+    border-bottom: 2px solid var(--morado-claro);
     padding-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 25px;
+    font-weight: 700;
 }
 
+/* ==============================
+   Líneas
+================================ */
 hr {
     border: 0;
-    height: 1px;
-    background-color: #BADFDB;
-    margin: 30px 0;
+    height: 2px;
+    background-color: var(--morado-int);
+    margin: 35px 0;
 }
 
-.solver-section {
-    margin-bottom: 30px;
-}
-
+/* ==============================
+   Secciones
+================================ */
 .solver-section p {
     margin-bottom: 20px;
-    color: #555;
+    color: var(--morado-fuerte);
+    font-weight: 400;
 }
 
-/* Estilos para inputs */
+/* ==============================
+   Inputs principales
+================================ */
 #ecuacion,
 #formulaLiteral {
     width: 100%;
     padding: 12px;
-    border: 1px solid #FFA4A4;
-    border-radius: 8px;
-    font-size: 1.1em;
+    border: 2px solid var(--morado-int);
+    border-radius: 10px;
+    font-size: 1.05em;
     margin-bottom: 15px;
-    box-sizing: border-box;
-    font-family: 'Courier New', monospace;
+    background: var(--gris-claro);
+    color: var(--morado-fuerte);
+    font-family: 'Poppins', sans-serif;
+    transition: 0.3s ease;
 }
 
-.formula-input-container {
-    margin-bottom: 20px;
+#ecuacion:focus,
+#formulaLiteral:focus {
+    outline: none;
+    border-color: var(--morado-uva);
+    box-shadow: 0 4px 12px var(--sombra);
 }
 
+/* ==============================
+   Labels
+================================ */
 .formula-input-container label {
     display: block;
-    font-weight: Courier;
-    color: #FFA4A4;
+    font-weight: 700;
+    color: var(--morado-uva);
     margin-bottom: 10px;
 }
 
+/* ==============================
+   Botones
+================================ */
 button {
-    background-color: #FFA4A4;
-    color: #FCF9EA;
-    padding: 15px 25px;
+    background-color: var(--morado-uva);
+    color: var(--blanco);
+    padding: 14px 22px;
     border: none;
-    border-radius: 9px;
-    font-family: courier;
+    border-radius: 10px;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
-    transition: background-color 0.5s ease;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    font-weight: 600;
+    transition: 0.25s ease;
+    box-shadow: 0 6px 12px var(--sombra);
 }
 
 button:hover {
-    background-color: #FFBDBD;
+    background-color: var(--morado-int);
+    transform: translateY(-2px);
 }
 
+button:active {
+    transform: translateY(0px);
+}
+
+/* ==============================
+   Caja de resultados
+================================ */
 .result-box {
-    background-color: #BADFDB;
-    border: 1px solid #FFA4A4;
-    padding: 15px;
-    border-radius: 8px;
+    background-color: var(--gris-claro);
+    border: 2px solid var(--morado-int);
+    padding: 18px;
+    border-radius: 10px;
     font-size: 1.1em;
-    color: #FF8F8F;
-    margin-top: 15px;
+    color: var(--morado-fuerte);
+    margin-top: 20px;
     min-height: 20px;
+    box-shadow: 0 4px 10px var(--sombra);
 }
 
 .result-box:empty {
     display: none;
 }
 
+/* Mensaje de error */
 .error-message {
-    color: #e74c3c;
-    font-weight: bold;
+    color: #d62929;
+    font-weight: 700;
     margin-top: 10px;
-    min-height: 20px;
 }
 
-/* Estilos para la tabla de despejes */
+/* ==============================
+   Tabla
+================================ */
 .result-box table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    background-color: white;
+    background-color: var(--blanco);
 }
 
 .result-box table thead {
-    background-color: #FFBDBD;
-    color: white;
+    background-color: var(--morado-uva);
+    color: var(--blanco);
 }
 
 .result-box table th,
 .result-box table td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #FFBDBD;
-}
-
-.result-box table th {
-    font-weight: bold;
+    border: 1px solid var(--morado-int);
+    font-family: 'Poppins', sans-serif;
 }
 
 .result-box table tbody tr:nth-child(even) {
-    background-color: #FCF9EA;
+    background-color: #f2e1e8;
 }
 
 .result-box table tbody tr:hover {
-    background-color: #FCF9EA;
+    background-color: #f8d9e3;
 }
 
+/* Texto formateado */
 .result-box pre {
     margin: 0;
-    font-family: 'Courier New', monospace;
+    font-family: 'Poppins', monospace;
     font-size: 1em;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
 
+/* Fórmula original */
 .result-box .formula-original {
-    background-color: #FFBDBD;
-    padding: 10px;
-    border-radius: 6px;
+    background-color: var(--morado-claro);
+    padding: 12px;
+    border-radius: 8px;
     margin-bottom: 15px;
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--morado-fuerte);
 }
 
+/* Nota didáctica */
 .result-box .nota-didactica {
-    background-color: #FFBDBD;
-    border-left: 4px solid #FFA4A4;
+    background-color: #f7cedd;
+    border-left: 5px solid var(--morado-int);
     padding: 12px;
     margin-top: 15px;
     font-size: 0.95em;
-    color: #E06B80;
+    color: var(--morado-uva);
 }
 
+/* ==============================
+   Grid de inputs
+================================ */
 .input-grid {
     display: grid;
     grid-template-columns: auto 1fr auto 1fr;
@@ -187,19 +245,26 @@ button:hover {
 }
 
 .input-grid label {
-    font-weight: bold;
-    color: #34495e;
+    font-weight: 700;
+    color: var(--morado-fuerte);
     text-align: right;
 }
 
 .input-grid input[type="number"] {
-    padding: 8px;
-    border: 1px solid black;
-    border-radius: 4px;
+    padding: 10px;
+    border: 2px solid var(--morado-int);
+    border-radius: 8px;
     font-size: 1em;
     width: 100%;
-    box-sizing: border-box;
+    background: var(--gris-claro);
+    transition: 0.2s;
 }
+
+.input-grid input[type="number"]:focus {
+    outline: none;
+    border-color: var(--morado-uva);
+}
+
 </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 </head>
