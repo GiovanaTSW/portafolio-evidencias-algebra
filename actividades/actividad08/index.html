@@ -6,181 +6,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Operaciones Algebraicas</title>
 <style>
-/* Variables de colores */
+/* ==================== VARIABLES ==================== */
 :root {
-    --morado-claro: #EF88AD;
-    --morado-int: #A53860;
-    --morado-uva: #670D2F;
+    --vino-oscuro: #5A0E24;
+    --vino-medio: #76153C;
+    --vino-rosado: #f8e9ef;
     --blanco: #ffffff;
-    --negro: #000000;
-    --morado-fuerte: #3A0519
-    --gris-claro: #f8fafc;
-    --gris-medio: #e2e8f0;
-    --sombra: rgba(30, 58, 138, 0.1);
+    --fondo-glass: rgba(255, 255, 255, 0.12);
+    --glass-borde: rgba(255, 255, 255, 0.25);
+    --glass-bg2: rgba(255, 255, 255, 0.18);
+    --texto-suave: #ffe6ec;
+}
 
-/* Reset y configuración base */
+/* ==================== RESET ==================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ==================== TIPOGRAFÍA ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* ==================== BODY ==================== */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;;
-    background-color: var(--morado-claro);
-    color: var(--morado-fuerte);
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, var(--vino-oscuro) 0%, var(--vino-medio) 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 40px;
+    color: var(--blanco);
 }
 
-/* Contenedor principal */
+/* ==================== CONTENEDOR ==================== */
 .container {
     width: 100%;
     max-width: 600px;
-    padding: 2rem;
+    padding: 35px;
+    background: var(--fondo-glass);
+    border-radius: 25px;
+    border: 1px solid var(--glass-borde);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
 }
 
-/* Título */
+/* ==================== TÍTULOS ==================== */
 h1 {
     text-align: center;
-    font-family: Arial;
-    font-size: 2rem;
-    font-weight: 1000;
-    color: var(--morado-uva);
-    margin-bottom: 3rem;
+    font-size: 34px;
+    margin-bottom: 20px;
+    color: var(--blanco);
+    font-weight: 600;
 }
 
-p{
+p {
     text-align: center;
-    font-family: 'courier';
-    font-size: 1rem;
-    font-weight: 50;
-    color: var(--morado-uva);
-    margin-bottom: 3rem;
+    font-size: 16px;
+    color: var(--vino-rosado);
+    margin-bottom: 25px;
 }
 
-/* Sección de inputs */
+/* ==================== INPUTS ==================== */
 .input-section {
-    margin-bottom: 2rem;
+    margin-bottom: 25px;
 }
 
 .field-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--morado-uva);
-    margin-bottom: 0.5rem;
-    box-shadow: 0 4px 6px var(--sombra);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--texto-suave);
+    margin-bottom: 6px;
 }
 
-/* Campos de texto */
 textarea {
     width: 100%;
     min-height: 100px;
-    padding: 1rem;
-    background-color: var(--morado-uva);
-    border: 2px solid var(--morado-int);
-    box-shadow: 0 4px 6px var(--sombra);
-    border-radius: 8px;
-    color: var(--gris-claro);
-    font-size: 1rem;
-    font-family: 'courier';
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--glass-borde);
+    border-radius: 12px;
+    color: var(--blanco);
+    font-size: 15px;
     resize: vertical;
-    transition: border-color 0.3s ease;
+    backdrop-filter: blur(6px);
+}
+
+textarea::placeholder {
+    color: var(--vino-rosado);
+    opacity: 0.6;
 }
 
 textarea:focus {
     outline: none;
-    border-color: var(--morado-int);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-textarea::placeholder {
-    color: var(--morado-claro);
-}
-
-/* Botón de calcular */
+/* ==================== BOTÓN ==================== */
 .calculate-button {
     width: 100%;
-    padding: 1rem;
-    background-color: var(--morado-uva);
-    color: var(--morado-claro);
-    box-shadow: 0 4px 6px var(--sombra);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 900;
+    padding: 14px;
+    border-radius: 18px;
+    font-weight: 600;
+    border: 1px solid var(--glass-borde);
+    color: var(--blanco);
+    background: rgba(255,255,255,0.15);
     cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 16px;
+    transition: 0.25s;
+    margin-top: 10px;
 }
 
 .calculate-button:hover {
-    background-color: var(--morado-uva);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.05);
 }
 
-.calculate-button:active {
-    transform: translateY(0);
-}
-
-/* Sección de resultados */
+/* ==================== RESULTADOS ==================== */
 .result-section {
-    margin-top: 2rem;
+    margin-top: 25px;
 }
 
 .info-card {
-    background-color: var(--morado-uva);
-    border: 2px solid var(--morado-int);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px var(--sombra);
+    background: rgba(255,255,255,0.18);
+    border: 1px solid var(--glass-borde);
+    padding: 20px;
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
 }
 
 .info-card h3 {
-    color: var(--morado-claro);
-    box-shadow: 0 4px 6px var(--sombra);
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
+    color: var(--blanco);
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+    padding-bottom: 5px;
 }
 
 .result-content {
-    font-family: 'Courier New', monospace;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--morado-claro);
-    background-color: var(--morado-int);
-    box-shadow: 0 4px 6px var(--sombra);
-    padding: 1rem;
-    border-radius: 6px;
+    background: rgba(255,255,255,0.25);
     border-left: 4px solid var(--blanco);
-    min-height: 60px;
-    display: flex;
-    align-items: center;
+    padding: 15px;
+    color: var(--vino-rosado);
+    font-size: 16px;
+    border-radius: 12px;
+    line-height: 1.5;
+    backdrop-filter: blur(6px);
 }
 
-/* Media queries para responsive */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .container {
-        padding: 1rem;
+        padding: 20px;
     }
-    
+
     h1 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-    
-    textarea {
-        min-height: 80px;
-        font-size: 0.9rem;
+        font-size: 28px;
     }
 }
-}
+
 </style>
 </head>
 <body>
