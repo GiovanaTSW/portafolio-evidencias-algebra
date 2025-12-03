@@ -100,4 +100,46 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Modo Oscuro activado");
         }
     });
+    // ------------------------------
+// 5. Botón "Regresar al Inicio"
+// ------------------------------
+
+if (window.location.pathname.includes("actividades")) {
+
+    const backBtn = document.createElement("button");
+    backBtn.innerText = "← Regresar";
+    backBtn.id = "backButton";
+
+    Object.assign(backBtn.style, {
+        position: "fixed",
+        top: "20px",
+        left: "20px",
+        padding: "8px 14px",
+        fontSize: "16px",
+        borderRadius: "12px",
+        border: "none",
+        cursor: "pointer",
+        background: "#ffffffcc",
+        color: "#5A0E24",
+        fontWeight: "600",
+        zIndex: "999",
+        boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
+        transition: "0.2s"
+    });
+
+    backBtn.addEventListener("mouseenter", () => {
+        backBtn.style.transform = "scale(1.07)";
+    });
+
+    backBtn.addEventListener("mouseleave", () => {
+        backBtn.style.transform = "scale(1)";
+    });
+
+    backBtn.addEventListener("click", () => {
+        window.location.href = "../../index.html";
+    });
+
+    document.body.appendChild(backBtn);
+}
+
 });

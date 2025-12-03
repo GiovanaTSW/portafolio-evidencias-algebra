@@ -893,3 +893,5 @@ initCustomSelects();
 
 // Mostrar la visualización inicial
 updateDisplay();
+
+
